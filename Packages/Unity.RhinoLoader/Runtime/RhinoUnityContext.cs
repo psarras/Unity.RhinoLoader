@@ -12,6 +12,7 @@ namespace RhinoLoader
         public File3dmObject File3dmObject { get; set; }
         public Type Type => File3dmObject.Geometry.GetType();
 
+        public string GoName => $"{File3dmObject.Geometry.ObjectType}:{File3dmObject.Id}";
         public Rhino.DocObjects.Material Material =>
             File.AllMaterials.FindIndex(File3dmObject.Attributes.MaterialIndex);
     }

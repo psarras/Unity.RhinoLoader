@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6021847348772270184}
   - component: {fileID: 6021847348772270187}
+  - component: {fileID: -2534678545393018167}
   m_Layer: 0
   m_Name: RhinoCurveRenderer
   m_TagString: Untagged
@@ -129,3 +130,15 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!114 &-2534678545393018167
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6021847348772270186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcfc676a93af4e24a87993b22fd6c821, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

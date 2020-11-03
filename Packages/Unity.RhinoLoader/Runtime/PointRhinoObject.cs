@@ -13,7 +13,6 @@ namespace RhinoLoader
             var goPointObj = Resources.Load("Prefabs/RhinoPoint") as GameObject;
             var go = Object.Instantiate(goPointObj, context.Transform);
             go.transform.position = p.ToHost();
-            go.transform.parent = context.Transform;
             go.GetComponent<MeshRenderer>().material.color = context.Material.DiffuseColor.ToUnity();
             return go;
         }

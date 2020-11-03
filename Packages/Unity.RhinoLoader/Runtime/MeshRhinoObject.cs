@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace RhinoLoader
 {
@@ -11,8 +12,8 @@ namespace RhinoLoader
         {
             var m = (Rhino.Geometry.Mesh) context.File3dmObject.Geometry;
             var mesh = m.ToHost();
-            var go = GameObject.CreatePrimitive(PrimitiveType.Plane);
-            go.transform.parent = context.Transform;
+            var goPointObj = Resources.Load("Prefabs/RhinoMesh") as GameObject;
+            var go = Object.Instantiate(goPointObj, context.Transform);
             var meshFilter = go.GetComponent<MeshFilter>();
             var meshRenderer = go.GetComponent<MeshRenderer>();
             meshFilter.mesh = mesh;

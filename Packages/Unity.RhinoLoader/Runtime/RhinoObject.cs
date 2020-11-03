@@ -10,7 +10,21 @@ namespace RhinoLoader
 
         public GameObject CreateObject(IContext context)
         {
-            return CreateObject(context as RhinoUnityContext);
+            var rhinoUnityContext = context as RhinoUnityContext;
+            if (rhinoUnityContext != null)
+            {
+                var go = CreateObject(rhinoUnityContext);
+                go.name = rhinoUnityContext.GoName;
+                BindRhinoObjectData(go, rhinoUnityContext);
+                return go;
+            }
+            return null;
+        }
+
+        private static void BindRhinoObjectData(GameObject go, RhinoUnityContext context)
+        {
+            var rhinoObjectData = go.GetComponent<RhinoObjectData>();
+            rhinoObjectData.File3dmObject = context.File3dmObject;
         }
 
         protected abstract GameObject CreateObject(RhinoUnityContext context);

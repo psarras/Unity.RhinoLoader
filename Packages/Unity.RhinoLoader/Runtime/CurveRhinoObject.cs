@@ -14,8 +14,8 @@ namespace RhinoLoader
             var points = nurbsCurve.ToHost();
 
             var rhinoCurveRenderer = Resources.Load("Prefabs/RhinoCurveRenderer") as GameObject;
-
             var go = Object.Instantiate(rhinoCurveRenderer, context.Transform);
+
             var lineRe = go.GetComponent<LineRenderer>();
             lineRe.positionCount = points.Length;
             lineRe.SetPositions(points);
