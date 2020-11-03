@@ -1,0 +1,16 @@
+{
+  "name": "stam.rhino.loader",
+  "displayName": "Unity Loader",
+  "version": "1.0.0",
+  "unity": "2020.1",
+  "keywords": [
+    "utilities", "IO"
+  ],
+  "description": "Support scripts to bring Rhino geometry into Unity",
+  "author": {
+    "name": "Stamatios Psarras",
+    "url": "http://github.com"
+  },
+  "type": "library",
+  "hideInEditor": false
+}
