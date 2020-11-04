@@ -7,7 +7,7 @@ namespace RhinoLoader
 {
     public class FileReader
     {
-        public GameObject Read(string path, Transform transform)
+        public static GameObject Read(string path, Transform transform)
         {
             var f = new FileInfo(path);
             var root = new GameObject($"File:{f.Name}");
@@ -42,7 +42,6 @@ namespace RhinoLoader
 
                 if (RhinoFactory.CreateInputs(rhinoContext, out GameObject mobject))
                 {
-                    Debug.Log("Success!");
                 }
             }
 
