@@ -21,7 +21,9 @@ namespace RhinoLoader
             var go = Object.Instantiate(goPointObj, context.Transform);
             var meshFilter = go.GetComponent<MeshFilter>();
             var meshRenderer = go.GetComponent<MeshRenderer>();
-            meshFilter.mesh = mesh;
+            var meshCollider = go.GetComponent<MeshCollider>();
+            meshFilter.sharedMesh = mesh;
+            meshCollider.sharedMesh = mesh;
             meshRenderer.material.color = context.Material.DiffuseColor.ToUnity();
             return go;
         }

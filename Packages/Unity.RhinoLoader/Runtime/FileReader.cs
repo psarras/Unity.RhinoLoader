@@ -7,12 +7,15 @@ namespace RhinoLoader
 {
     public class FileReader
     {
-        public static GameObject Read(string path, Transform transform)
+        public static GameObject Read(string path, Transform transform, out RhinoFileInfo rhinoFileInfo)
         {
             var f = new FileInfo(path);
             var root = new GameObject($"File:{f.Name}");
             root.transform.parent = transform;
+            rhinoFileInfo = root.AddComponent<RhinoFileInfo>();
             var file = File3dm.Read(path);
+            rhinoFileInfo.Description = file.Notes.Notes;
+            rhinoFileInfo.FullPath = path;
             var materials = file.AllMaterials;
 
             List<GameObject> layers = new List<GameObject>();
@@ -29,18 +32,14 @@ namespace RhinoLoader
                 var layerIndex = item.Attributes.LayerIndex;
                 var mat = materials.FindIndex(materialIndex);
                 
-                
-                // var childGo = new GameObject("Object: " + item.Id);
-                // childGo.transform.parent = root.transform;
-
-                var rhinoContext = new RhinoUnityContext()
+                var context = new RhinoUnityContext()
                 {
                     File = file,
                     File3dmObject = item,
                     Transform = layers[layerIndex].transform
                 };
 
-                if (RhinoFactory.CreateInputs(rhinoContext, out GameObject mobject))
+                if (RhinoFactory.CreateInputs(context, out GameObject mobject))
                 {
                 }
             }
