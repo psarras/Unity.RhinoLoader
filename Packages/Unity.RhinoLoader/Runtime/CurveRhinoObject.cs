@@ -19,7 +19,7 @@ namespace RhinoLoader
             var lineRe = go.GetComponent<LineRenderer>();
             lineRe.positionCount = points.Length;
             lineRe.SetPositions(points);
-            lineRe.material.color = context.Material.DiffuseColor.ToUnity();
+            lineRe.material.color = context.DisplayColor;
             return go;
         }
     }

@@ -14,7 +14,7 @@ namespace RhinoLoader
             root.transform.parent = transform;
             rhinoFileInfo = root.AddComponent<RhinoFileInfo>();
             var file = File3dm.Read(path);
-            rhinoFileInfo.Description = file.Notes.Notes;
+            rhinoFileInfo.Description = file.Notes?.Notes;
             rhinoFileInfo.FullPath = path;
             var materials = file.AllMaterials;
 

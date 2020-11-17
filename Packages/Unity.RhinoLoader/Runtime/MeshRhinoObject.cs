@@ -14,9 +14,13 @@ namespace RhinoLoader
             var m = (Rhino.Geometry.Mesh) context.File3dmObject.Geometry;
             var mesh = m.ToHost();
 
-            var parts = context.Material.Name.Split(new[] {':'}, StringSplitOptions.RemoveEmptyEntries);
-            var IsUnlit = parts.Length > 2 && parts.Last().Equals("1");
-            
+            var IsUnlit = false;
+            if (context.HasMaterial)
+            {
+                var parts = context.Material.Name.Split(new[] {':'}, StringSplitOptions.RemoveEmptyEntries);
+                IsUnlit = parts.Length > 2 && parts.Last().Equals("1");
+            }
+
             var goPointObj = Resources.Load(IsUnlit ? "Prefabs/RhinoMeshUnlit" : "Prefabs/RhinoMesh") as GameObject;
             var go = Object.Instantiate(goPointObj, context.Transform);
             var meshFilter = go.GetComponent<MeshFilter>();
@@ -24,8 +28,10 @@ namespace RhinoLoader
             var meshCollider = go.GetComponent<MeshCollider>();
             meshFilter.sharedMesh = mesh;
             meshCollider.sharedMesh = mesh;
-            meshRenderer.material.color = context.Material.DiffuseColor.ToUnity();
+            meshRenderer.material.color = context.DisplayColor;
             return go;
+
+            return null;
         }
     }
 }
