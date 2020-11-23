@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3677119794143315743}
   - component: {fileID: 4305180843199201423}
   - component: {fileID: -6545581943582565633}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RhinoMeshUnlit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
