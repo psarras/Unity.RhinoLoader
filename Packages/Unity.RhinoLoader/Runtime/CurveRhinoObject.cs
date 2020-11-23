@@ -17,6 +17,19 @@ namespace RhinoLoader
             var go = Object.Instantiate(rhinoCurveRenderer, context.Transform);
 
             var lineRe = go.GetComponent<LineRenderer>();
+
+            if (context.HasMaterial)
+            {
+                var parts = context.Material.Name.Split(new[] {':'});
+                if (parts.Length > 3)
+                {
+                    var thickness = float.Parse(parts[2]);
+                    lineRe.startWidth = thickness;
+                    lineRe.endWidth = thickness;
+                    lineRe.widthMultiplier = thickness;
+                }
+            }
+
             lineRe.positionCount = points.Length;
             lineRe.SetPositions(points);
             lineRe.material.color = context.DisplayColor;
