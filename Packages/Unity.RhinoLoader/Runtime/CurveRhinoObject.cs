@@ -20,10 +20,9 @@ namespace RhinoLoader
 
             if (context.HasMaterial)
             {
-                var parts = context.Material.Name.Split(new[] {':'});
-                if (parts.Length > 3)
+                var thickness = context.GetThickness;
+                if (thickness != float.NaN)
                 {
-                    var thickness = float.Parse(parts[2]);
                     lineRe.startWidth = thickness;
                     lineRe.endWidth = thickness;
                     lineRe.widthMultiplier = thickness;

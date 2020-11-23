@@ -42,6 +42,23 @@ namespace RhinoLoader
                 
             }
         }
+
+        public float GetThickness
+        {
+            get
+            {
+                var parts = Material.Name.Split(new[] {':'});
+                if (parts.Length > 3)
+                {
+                    return float.Parse(parts[2]);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+        }
+        
     }
 
 }

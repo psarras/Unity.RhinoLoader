@@ -26,6 +26,14 @@ namespace RhinoLoader
             var meshFilter = go.GetComponent<MeshFilter>();
             var meshRenderer = go.GetComponent<MeshRenderer>();
             var meshCollider = go.GetComponent<MeshCollider>();
+
+            if (context.HasMaterial && IsUnlit)
+            {
+                var thickness = context.GetThickness;
+                meshRenderer.material.SetFloat("_WireframeVal", thickness / 5);
+            }
+
+
             meshFilter.sharedMesh = mesh;
             meshCollider.sharedMesh = mesh;
             meshRenderer.material.color = context.DisplayColor;
