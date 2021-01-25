@@ -79,12 +79,17 @@ namespace RhinoLoader
         static public UnityEngine.Mesh ToHost(this Rhino.Geometry.Mesh _mesh)
         {
             var result = new UnityEngine.Mesh();
+            
+            if(_mesh.Vertices.Count > 65535)
+                result.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+
             using (var mesh = _mesh.DuplicateMesh())
             {
                 mesh.Faces.ConvertQuadsToTriangles();
 
                 result.SetVertices(mesh.Vertices.ToHost());
                 result.SetNormals(mesh.Normals.ToHost());
+                result.SetUVs(0, mesh.TextureCoordinates.ToHost());
 
                 int i = 0;
                 int[] indices = new int[mesh.Faces.Count * 3];
@@ -117,7 +122,23 @@ namespace RhinoLoader
         //     return mesh.ToHost();
         // }
 
+        static public List<Vector2> ToHost(this MeshTextureCoordinateList coordinate)
+        {
+            var coors = new List<Vector2>();
 
+            foreach (var c in coordinate)
+            {
+                coors.Add(c.ToHost());
+            }
+            
+            return coors;
+        }
+
+        public static Vector2 ToHost(this Point2f point)
+        {
+            return new Vector2(point.X, point.Y);
+        }
+        
         static public Vector3[] ToHost(this NurbsCurve curve)
         {
             if(curve.TryGetPolyline(out Polyline poly))
