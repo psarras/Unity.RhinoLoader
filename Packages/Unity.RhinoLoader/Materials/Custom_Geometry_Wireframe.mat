@@ -21,7 +21,7 @@ Material:
     m_TexEnvs: []
     m_Floats:
     - _RemoveDiag: 1
-    - _WireframeVal: 0.007
+    - _WireframeVal: 0.011
     m_Colors:
     - _BackColor: {r: 1, g: 0, b: 0, a: 1}
     - _FrontColor: {r: 0, g: 0, b: 0, a: 1}

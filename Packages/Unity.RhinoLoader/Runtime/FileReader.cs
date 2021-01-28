@@ -9,7 +9,7 @@ namespace RhinoLoader
     {
         public static GameObject Read(string path, Transform transform, out RhinoFileInfo rhinoFileInfo)
         {
-            var f = new FileInfo(path);
+            var f = new FileInfo(path);    
             var root = new GameObject($"File:{f.Name}");
             root.transform.parent = transform;
             rhinoFileInfo = root.AddComponent<RhinoFileInfo>();
