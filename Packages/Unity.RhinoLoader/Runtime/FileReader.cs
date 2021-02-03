@@ -14,6 +14,7 @@ namespace RhinoLoader
             root.transform.parent = transform;
             rhinoFileInfo = root.AddComponent<RhinoFileInfo>();
             var file = File3dm.Read(path);
+            rhinoFileInfo.File3dm = file;
             rhinoFileInfo.Description = file.Notes?.Notes;
             rhinoFileInfo.FullPath = path;
             var materials = file.AllMaterials;
@@ -22,6 +23,7 @@ namespace RhinoLoader
             foreach (var layer in file.AllLayers)
             {
                 var go = new GameObject($"Layer: {layer.Name}");
+                go.AddComponent<RhinoLayerController>().SetLayer(layer);
                 go.transform.parent = root.transform;
                 layers.Add(go);
             }

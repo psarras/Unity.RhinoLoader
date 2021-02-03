@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Rhino.FileIO;
+using UnityEngine;
 
 namespace RhinoLoader
 {
@@ -6,5 +7,6 @@ namespace RhinoLoader
     {
         public string Description;
         public string FullPath;
+        public File3dm File3dm;
     }
 }

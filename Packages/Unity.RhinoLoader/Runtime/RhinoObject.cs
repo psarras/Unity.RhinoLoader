@@ -24,7 +24,7 @@ namespace RhinoLoader
         private static void BindRhinoObjectData(GameObject go, RhinoUnityContext context)
         {
             var rhinoObjectData = go.GetComponent<RhinoObjectData>();
-            rhinoObjectData.File3dmObject = context.File3dmObject;
+            rhinoObjectData.Bind(context.File3dmObject);
         }
 
         protected abstract GameObject CreateObject(RhinoUnityContext context);
