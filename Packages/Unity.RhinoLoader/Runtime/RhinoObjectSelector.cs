@@ -22,7 +22,8 @@ public class RhinoObjectSelector : Singleton<RhinoObjectSelector>
             {
                 // Select
                 RhinoObjectData = hitInfo.collider.GetComponent<RhinoObjectData>();
-                OnUpdated?.Invoke(RhinoObjectData);
+                if(RhinoObjectData != null)
+                    OnUpdated?.Invoke(RhinoObjectData);
                 Debug.Log(hitInfo.collider.name);
             }
             else
