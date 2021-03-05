@@ -3,7 +3,7 @@ using BitsNBobs.Singleton;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class RhinoObjectSelector : Singleton<RhinoObjectSelector>
+public class RhinoObjectSelector : LazyInstantiatedSingleton<RhinoObjectSelector>
 {
     private Camera cam;
     [SerializeField] private LayerMask layerMask;
