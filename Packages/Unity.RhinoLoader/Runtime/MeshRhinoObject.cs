@@ -10,7 +10,9 @@ namespace RhinoLoader
     public class MeshRhinoObject : RhinoObject
     {
         public override Type Type { get; } = typeof(Rhino.Geometry.Mesh);
-
+        private const string Lit = "Prefabs/RhinoMesh";
+        private const string LitVertex = "Prefabs/RhinoMeshLitVertex";
+        private const string UnlitVertex = "Prefabs/RhinoMeshUnlit";
         protected override GameObject CreateObject(RhinoUnityContext context)
         {
             var m = (Rhino.Geometry.Mesh) context.File3dmObject.Geometry;
@@ -22,8 +24,20 @@ namespace RhinoLoader
                 var parts = context.Material.Name.Split(new[] {':'}, StringSplitOptions.RemoveEmptyEntries);
                 IsUnlit = parts.Length > 2 && parts.Last().Equals("1");
             }
+            
+            var chosenResource = Lit;
 
-            var goPointObj = Resources.Load(IsUnlit ? "Prefabs/RhinoMeshUnlit" : "Prefabs/RhinoMesh") as GameObject;
+            if (IsUnlit)
+            {
+                chosenResource = UnlitVertex;
+            }
+            else
+            {
+                var hasVertexColours = mesh.colors.Length > 0;
+                chosenResource = hasVertexColours ? LitVertex : Lit;
+            }
+            
+            var goPointObj = Resources.Load(chosenResource) as GameObject;
             var go = Object.Instantiate(goPointObj, context.Transform);
             var meshFilter = go.GetComponent<MeshFilter>();
             var meshRenderer = go.GetComponent<MeshRenderer>();
