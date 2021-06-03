@@ -1,0 +1,58 @@
+name: Release
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    tags: 'v*.*.*'
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v1
+    
+      - name: get version from tag
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          echo $env:GITHUB_REF
+          $env:GITHUB_REF -match "refs/tags/(?<content>.*)"
+          $RELEASE_VERSION = $matches["content"]
+          echo "::set-env name=RELEASE_VERSION::$RELEASE_VERSION" 
+          $env:GITHUB_REF -match "refs/tags/v(?<content>.*)"
+          $NUMERICAL_VERSION = $matches["content"]
+          echo "::set-env name=NUMERICAL_VERSION::$NUMERICAL_VERSION"
+          $FULL_VERSION = "$NUMERICAL_VERSION.$env:GITHUB_RUN_NUMBER"
+          echo "::set-env name=FULL_VERSION::$FULL_VERSION"
+          echo "Release version = $RELEASE_VERSION"
+          echo "Numerical version = $NUMERICAL_VERSION"
+          echo "Full version = $FULL_VERSION"
+      - name: Change package.json version
+        env:
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: 'true'
+        run: |
+          $filePath = 'package.json'
+          $fileContent = (Get-Content $filePath)
+          echo $fileContent
+          $replacedFileContent = $fileContent
+          $replacedFileContent = $replacedFileContent.Replace('"0.0.0"', ('"' + $env:NUMERICAL_VERSION + '"'))
+          echo $replacedFileContent
+          Out-File -FilePath $filePath -InputObject $replacedFileContent
+        working-directory: Packages/Unity.RhinoLoader
+
+      - uses: actions/setup-node@v1
+        with:
+          node-version: 10
+      - run: npm install
+      - run: |
+          cd Packages/Unity.RhinoLoader
+          npm test
+      - uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: Packages/Unity.RhinoLoader/package.json

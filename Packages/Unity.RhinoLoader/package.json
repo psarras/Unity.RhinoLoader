@@ -1,16 +1,22 @@
 {
-  "name": "stam.rhino.loader",
+  "name": "com.spsarras.rhinoloader",
   "displayName": "Rhino Loader",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "unity": "2020.1",
   "keywords": [
-    "utilities", "IO"
+    "utilities", 
+    "IO",
+    "rhino"
   ],
   "description": "Support scripts to bring Rhino geometry into Unity",
   "author": {
-    "name": "Stamatios Psarras",
-    "url": "http://github.com"
+    "name": "Stam",
+    "url": "https://github.com/psarras"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:psarras/Unity.RhinoLoader.git"
   },
   "type": "library",
-  "hideInEditor": false
+  "license": "MIT"
 }
