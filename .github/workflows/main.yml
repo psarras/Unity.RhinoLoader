@@ -56,4 +56,3 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: Packages/Unity.RhinoLoader/package.json
-          dry-run: true
